@@ -30,7 +30,9 @@ namespace VirutalStoreFunctions
         [OpenApiRequestBody("", typeof(PhotoStorage))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            [Blob("photos", FileAccess.Write, Connection = Literals.StorageConnectionString)] BlobContainerClient myBlobContainerClient)
+            [Blob("photos", FileAccess.Write, Connection = Literals.StorageConnectionString)] BlobContainerClient myBlobContainerClient,
+            [CosmosDB("photos", "metadata", Connection = Literals.CosmosDBConnection, CreateIfNotExists = true)] IAsyncCollector<dynamic> items
+            )
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -46,6 +48,16 @@ namespace VirutalStoreFunctions
             var photoBytes = Convert.FromBase64String(request.Photo);
             using Stream stream = new MemoryStream(photoBytes);
             await cloudBlockBlob.UploadAsync(stream);
+
+            var itens = new
+            {
+                id = newId,
+                name = request.Name,
+                description = request.Description,
+                tags = request.Tags,
+            };
+
+            await items.AddAsync(itens);
 
             return new OkObjectResult(newId);
         }
