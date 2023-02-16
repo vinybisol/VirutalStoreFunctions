@@ -1,9 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace VirutalStoreFunctions.Models
 {
     public class PhotoUploadModel
     {
+        [JsonProperty("id")]
+        public Guid Id { get; set; }
+
+        [JsonProperty("partitionKey")]
+        public Guid PartitionKey { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

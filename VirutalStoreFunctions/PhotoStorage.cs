@@ -31,7 +31,7 @@ namespace VirutalStoreFunctions
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             [Blob("photos", FileAccess.Write, Connection = Literals.StorageConnectionString)] BlobContainerClient myBlobContainerClient,
-            [CosmosDB("photos", "metadata", Connection = Literals.CosmosDBConnection, CreateIfNotExists = true)] IAsyncCollector<dynamic> items
+            [CosmosDB("photos", "metadata", Connection = Literals.CosmosDBConnection, CreateIfNotExists = true)] IAsyncCollector<PhotoUploadModel> items
             )
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
@@ -49,12 +49,13 @@ namespace VirutalStoreFunctions
             using Stream stream = new MemoryStream(photoBytes);
             await cloudBlockBlob.UploadAsync(stream);
 
-            var itens = new
+            var itens = new PhotoUploadModel()
             {
-                id = newId,
-                name = request.Name,
-                description = request.Description,
-                tags = request.Tags,
+                Id = newId,
+                PartitionKey = newId,
+                Name = request.Name,
+                Description = request.Description,
+                Tags = request.Tags,
             };
 
             await items.AddAsync(itens);
