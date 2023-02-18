@@ -3,7 +3,7 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "StorageConnectionString": "UseDevelopmentStorage=true",
-    "CosmosDBConnection": "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=virtualstorestorage;AccountKey=GOdE8fIsKZslzp5nAnrBAi45DrjHMk30WuwGK2IBrpvG1lqnrmNcyrxHpG1X0HHw0bMBTzsjXpNX+AStThoUHA==;EndpointSuffix=core.windows.net",
+    "CosmosDBConnection": "AccountEndpoint=https://virtualstorecosmodb.documents.azure.com:443/;AccountKey=HnnjFEvpk4dm1T92LmjCpJ2i9XRpKu4SHErEONp17YdKxh9rJmHDuO173ADhSbjpGEUeI1KrRtviACDboM0kPA=="
   }
 }

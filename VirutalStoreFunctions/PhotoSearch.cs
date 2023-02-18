@@ -1,5 +1,3 @@
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -7,6 +5,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Net;
+using System.Threading.Tasks;
 using VirutalStoreFunctions.Models;
 
 namespace VirutalStoreFunctions
@@ -26,7 +26,7 @@ namespace VirutalStoreFunctions
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            [CosmosDB("photos", "metadata", Id = "{Query.id}", PartitionKey = "{Query.partitionKey}", Connection = Literals.CosmosDBConnection)] PhotoUploadModel photoModel)
+            [CosmosDB("photos", "metadata", Id = "{Query.id}", PartitionKey = "{Query.id}", Connection = Literals.CosmosDBConnection)] PhotoUploadModel photoModel)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 

@@ -1,0 +1,58 @@
+name: Build and deploy .NET Core application to Function App VirtualStoreFunctions with API Management Service VirutalStoreFunctionsapi-VirutalStoreFunctions
+on:
+  push:
+    branches:
+    - master
+env:
+  AZURE_FUNCTIONAPP_NAME: VirtualStoreFunctions
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: VirutalStoreFunctions\.
+  CONFIGURATION: Release
+  DOTNET_CORE_VERSION: 6.0.x
+  WORKING_DIRECTORY: VirutalStoreFunctions
+  AZURE_APIM_RESOURCEGROUP: VirtualStore
+  AZURE_APIM_SERVICENAME: VirutalStoreFunctionsapi
+  AZURE_APIM_API_ID: VirutalStoreFunctions
+  AZURE_APIM_RESOURCE_PATH: /vitualstoreapi
+  AZURE_APIM_SWAGGERURL: ''
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1.8.0
+      with:
+        include-prerelease: True
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Restore
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+    - name: Build
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+    - name: Publish
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: functionapp
+        path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: functionapp
+        path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+    - name: Deploy to Azure Function App
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        publish-profile: ${{ secrets.VirtualStoreFunctions_B747 }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.VirutalStoreFunctionsapi_SPN }}
+    - name: Import API into Azure API Management
+      run: az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group ${{ env.AZURE_APIM_RESOURCEGROUP }} --service-name ${{ env.AZURE_APIM_SERVICENAME }} --api-id ${{ env.AZURE_APIM_API_ID }} --specification-url "${{ env.AZURE_APIM_SWAGGERURL }}" --specification-format OpenApi --subscription-required false

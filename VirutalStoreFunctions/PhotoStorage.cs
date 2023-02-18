@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +7,10 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using VirutalStoreFunctions.Models;
 
 namespace VirutalStoreFunctions
@@ -31,7 +31,7 @@ namespace VirutalStoreFunctions
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             [Blob("photos", FileAccess.Write, Connection = Literals.StorageConnectionString)] BlobContainerClient myBlobContainerClient,
-            [CosmosDB("photos", "metadata", Connection = Literals.CosmosDBConnection, CreateIfNotExists = true)] IAsyncCollector<PhotoUploadModel> items
+            [CosmosDB("photos", "metadata", PartitionKey = "/id", Connection = Literals.CosmosDBConnection, CreateIfNotExists = true)] IAsyncCollector<PhotoUploadModel> items
             )
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
