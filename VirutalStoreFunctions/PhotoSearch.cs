@@ -26,7 +26,7 @@ namespace VirutalStoreFunctions
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            [CosmosDB("photos", "metadata", Id = "{Query.id}", PartitionKey = "{Query.id}", Connection = Literals.CosmosDBConnection)] PhotoUploadModel photoModel)
+            [CosmosDB("photos", "metadata", Id = "{Query.id}", PartitionKey = "{Query.id}", Connection = Literals.ConnectionStrings)] PhotoUploadModel photoModel)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 

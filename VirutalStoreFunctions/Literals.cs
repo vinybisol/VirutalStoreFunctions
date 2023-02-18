@@ -2,7 +2,7 @@
 {
     public static class Literals
     {
-        public const string StorageConnectionString = nameof(StorageConnectionString);
-        public const string CosmosDBConnection = nameof(CosmosDBConnection);
+        public const string AzureWebJobsStorage = nameof(AzureWebJobsStorage);
+        public const string ConnectionStrings = nameof(ConnectionStrings);
     }
 }

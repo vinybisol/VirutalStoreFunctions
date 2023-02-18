@@ -12,9 +12,9 @@ namespace VirutalStoreFunctions.Triggers
     public class PhotoResizer
     {
         [FunctionName("PhotoResizer")]
-        public async Task Run([BlobTrigger("photos/{name}", Connection = Literals.StorageConnectionString)] Stream myBlob,
-            [Blob("photos-medium/{name}", FileAccess.Write, Connection = Literals.StorageConnectionString)] Stream midiumPhoto,
-            [Blob("photos-small/{name}", FileAccess.Write, Connection = Literals.StorageConnectionString)] Stream smallPhoto,
+        public async Task Run([BlobTrigger("photos/{name}", Connection = Literals.AzureWebJobsStorage)] Stream myBlob,
+            [Blob("photos-medium/{name}", FileAccess.Write, Connection = Literals.AzureWebJobsStorage)] Stream midiumPhoto,
+            [Blob("photos-small/{name}", FileAccess.Write, Connection = Literals.AzureWebJobsStorage)] Stream smallPhoto,
             ILogger log)
         {
             log.LogInformation($"C# Blob trigger function Processed blob\n Size: {myBlob.Length} Bytes");

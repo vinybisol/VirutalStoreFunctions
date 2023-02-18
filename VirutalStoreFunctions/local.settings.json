@@ -1,9 +1,9 @@
 {
     "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=virtualstorestorage;AccountKey=GOdE8fIsKZslzp5nAnrBAi45DrjHMk30WuwGK2IBrpvG1lqnrmNcyrxHpG1X0HHw0bMBTzsjXpNX+AStThoUHA==;EndpointSuffix=core.windows.net",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=virtualstorestorage;AccountKey=GOdE8fIsKZslzp5nAnrBAi45DrjHMk30WuwGK2IBrpvG1lqnrmNcyrxHpG1X0HHw0bMBTzsjXpNX+AStThoUHA==;EndpointSuffix=core.windows.net",
-    "CosmosDBConnection": "AccountEndpoint=https://virtualstorecosmodb.documents.azure.com:443/;AccountKey=HnnjFEvpk4dm1T92LmjCpJ2i9XRpKu4SHErEONp17YdKxh9rJmHDuO173ADhSbjpGEUeI1KrRtviACDboM0kPA=="
+    //"StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=virtualstorestorage;AccountKey=GOdE8fIsKZslzp5nAnrBAi45DrjHMk30WuwGK2IBrpvG1lqnrmNcyrxHpG1X0HHw0bMBTzsjXpNX+AStThoUHA==;EndpointSuffix=core.windows.net",
+    "ConnectionStrings": "AccountEndpoint=https://virtualstorecosmodb.documents.azure.com:443/;AccountKey=HnnjFEvpk4dm1T92LmjCpJ2i9XRpKu4SHErEONp17YdKxh9rJmHDuO173ADhSbjpGEUeI1KrRtviACDboM0kPA=="
   }
 }
