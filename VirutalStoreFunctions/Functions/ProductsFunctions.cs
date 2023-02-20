@@ -70,6 +70,7 @@ namespace VirutalStoreFunctions.Functions
 
         [FunctionName("ProductAdd")]
         [OpenApiOperation(operationId: "Add", tags: new[] { "name" })]
+        [OpenApiRequestBody("", typeof(ProductsRequestPostDto))]
         [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
         public async Task<IActionResult> ProductAddAsync(

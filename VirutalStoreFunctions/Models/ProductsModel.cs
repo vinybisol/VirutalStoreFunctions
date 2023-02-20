@@ -23,7 +23,7 @@ namespace VirutalStoreFunctions.Models
         [JsonProperty("price")]
         public double Price { get; private set; }
 
-        [JsonProperty("pricemarket")]
+        [JsonProperty("priceMarket")]
         public double PriceMarket { get; private set; }
 
         [JsonProperty("note")]

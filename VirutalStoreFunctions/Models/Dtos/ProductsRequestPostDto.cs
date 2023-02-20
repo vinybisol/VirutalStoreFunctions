@@ -2,11 +2,21 @@
 {
     public class ProductsRequestPostDto
     {
-        public string Name { get; set; }
-        public string ShortName { get; set; }
-        public double Price { get; set; }
-        public double PriceMarket { get; set; }
-        public string Note { get; set; }
-        public string[] PhotoString { get; set; }
+        public string Name { get; }
+        public string ShortName { get; }
+        public double Price { get; }
+        public double PriceMarket { get; }
+        public string Note { get; }
+        public string[] PhotoString { get; }
+
+        public ProductsRequestPostDto(string name, string shortName, double price, double priceMarket, string note, string[] photoString)
+        {
+            Name = name;
+            ShortName = shortName;
+            Price = price;
+            PriceMarket = priceMarket;
+            Note = note;
+            PhotoString = photoString;
+        }
     }
 }
