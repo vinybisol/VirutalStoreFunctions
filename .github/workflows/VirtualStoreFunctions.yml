@@ -13,7 +13,7 @@ env:
   AZURE_APIM_SERVICENAME: VirutalStoreFunctionsapi
   AZURE_APIM_API_ID: VirutalStoreFunctions
   AZURE_APIM_RESOURCE_PATH: /vitualstoreapi
-  AZURE_APIM_SWAGGERURL: ''
+  AZURE_APIM_SWAGGERURL: 'https://virtualstorefunctions.azurewebsites.net/api/swagger/ui'
 jobs:
   build:
     runs-on: windows-latest
