@@ -1,3 +1,8 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +13,6 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using VirutalStoreFunctions.Models;
 using VirutalStoreFunctions.Models.Dtos;
 
@@ -64,6 +64,8 @@ namespace VirutalStoreFunctions.Functions
             CreateIfNotExists = true)] ProductsModel product)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
+            if (product.Active is false)
+                return new OkObjectResult(null);
 
             return new OkObjectResult(product);
         }

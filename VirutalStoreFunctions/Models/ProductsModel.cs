@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using VirutalStoreFunctions.Models.Dtos;
 
 namespace VirutalStoreFunctions.Models
@@ -16,6 +16,9 @@ namespace VirutalStoreFunctions.Models
 
         [JsonProperty("name")]
         public string Name { get; private set; }
+
+        [JsonProperty("active")]
+        public bool Active { get; private set; }
 
         [JsonProperty("shortName")]
         public string ShortName { get; private set; }
@@ -55,6 +58,7 @@ namespace VirutalStoreFunctions.Models
             Price = productsRequestPost.Price;
             PriceMarket = productsRequestPost.PriceMarket;
             Note = productsRequestPost.Note;
+            Active = productsRequestPost.Active;
         }
 
         public void AddPhotoId(string photoId)
