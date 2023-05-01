@@ -64,9 +64,6 @@ namespace VirutalStoreFunctions.Functions
             CreateIfNotExists = true)] ProductsModel product)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
-            if (product.Active is false)
-                return new OkObjectResult(null);
-
             return new OkObjectResult(product);
         }
 
